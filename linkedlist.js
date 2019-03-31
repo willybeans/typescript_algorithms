@@ -1,41 +1,74 @@
-var Node = /** @class */ (function () {
-    function Node(newNode) {
+var _Node = /** @class */ (function () {
+    function _Node(newNode) {
         this.val = newNode;
         this.next = null;
     }
-    Node.prototype.get_data = function () {
+    _Node.prototype.get_data = function () {
         return this.val;
     };
-    Node.prototype.set_data = function (val) {
+    _Node.prototype.set_data = function (val) {
         this.val = val;
     };
-    Node.prototype.get_next = function (val) {
+    _Node.prototype.get_next = function (val) {
         return this.next;
     };
-    Node.prototype.set_next = function (next) {
+    _Node.prototype.set_next = function (next) {
         this.next = next;
     };
-    return Node;
+    return _Node;
 }());
 var LinkedList = /** @class */ (function () {
-    function LinkedList(newObject) {
-        this.val = newObject;
-        this.head = null;
-        this.new_node = null;
+    function LinkedList() {
+        this.val = undefined;
+        this.head = undefined;
+        this.new_node = undefined;
+        this.current = null;
+        this.count = 0;
     }
-    LinkedList.prototype.get_count = function () {
+    LinkedList.prototype.getCount = function () {
+        console.log(this.count);
     };
-    LinkedList.prototype.insert = function () {
-        this.new_node = new Node(val);
+    LinkedList.prototype.insert = function (val) {
+        this.new_node = new _Node(val);
+        this.current = null;
+        if (this.head === undefined) {
+            this.head = this.new_node;
+        }
+        else {
+            this.current = this.head;
+            while (this.current.next) {
+                this.current = this.current.next;
+            }
+            this.current.next = this.new_node;
+        }
+        this.count++;
     };
-    LinkedList.prototype.find = function () {
+    LinkedList.prototype.find = function (val) {
+        this.current = this.head;
+        while (this.current.next.val != val) {
+            if (this.current.val === val) {
+                console.log(this.current);
+            }
+        }
     };
     LinkedList.prototype.deleteAt = function () {
     };
-    LinkedList.prototype.print_list = function () {
-        console.log(this.val);
+    LinkedList.prototype.printList = function () {
+        this.current = this.head;
+        while (this.current) {
+            console.log(this.current);
+            this.current = this.current.next;
+        }
     };
     return LinkedList;
 }());
-var ourList = new LinkedList(5);
-ourList.print_list();
+var ourList = new LinkedList();
+ourList.insert(5);
+ourList.insert(6);
+ourList.insert(3);
+ourList.insert(65);
+ourList.find(3);
+/*
+ourList.getCount();
+ourList.printList();
+*/
